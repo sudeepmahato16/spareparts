@@ -1,0 +1,89 @@
+/* Footer styles */
+.footer {
+  background-color: #343a40; 
+  color: #fff; 
+  padding: 50px 0; 
+}
+
+.footer h5 {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem; 
+}
+
+.footer p {
+  margin-bottom: 0.5rem;
+}
+
+.footer a {
+  color: #f8f9fa;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  color: #007bff;
+}
+
+.footer .social-icons {
+  margin-bottom: 1.5rem;
+  display: flex; 
+  align-items: center; 
+}
+
+
+.footer .social-icons a {
+  margin-right: 10px;
+}
+
+
+.footer .social-icons svg {
+  font-size: 2rem; 
+}
+
+.footer .social-icons a:last-child{
+  margin-right: 0; 
+}
+
+
+/* Header Top styles */
+.header-top {
+  background-color: #343a40; /* Dark background color */
+  color: #fff; /* Text color */
+  padding: 10px 20px; /* Padding for spacing */
+}
+
+.header-top .logo {
+  font-size: 1.5rem; /* Logo font size */
+}
+
+.header-top .search-bar input[type="text"] {
+  width: 300px; /* Adjust search bar width */
+}
+
+.header-top .user-links a {
+  color: #fff; /* User links text color */
+  text-decoration: none;
+  margin-right: 20px; /* Spacing between user links */
+}
+
+.header-top .user-links a:last-child {
+  margin-right: 0; /* Remove margin from last user link */
+}
+
+/* Navigation Menu styles */
+.navbar {
+  background-color: #5df15d; /* Light background color */
+}
+
+.navbar .navbar-nav .nav-item {
+  margin-right: 15px; /* Spacing between navigation items */
+}
+
+.navbar .navbar-nav .nav-link {
+  color: #222324; /* Navigation link text color */
+  text-decoration: none;
+  font-weight: 500; /* Navigation link font weight */
+}
+
+.navbar .navbar-nav .nav-link:hover {
+  color: #f56565; /* Navigation link hover color */
+}
