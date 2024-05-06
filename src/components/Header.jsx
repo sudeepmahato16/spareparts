@@ -1,8 +1,17 @@
-import React from "react";
+import { useState } from "react";
 import { BiCart } from "react-icons/bi";
 import { FiUser } from "react-icons/fi";
+import Login from "./Login";
 
 const Header = () => {
+  const [isHelmetHovered, setIsHelmetHovered] = useState(false);
+  const triggerHelmet = () => {
+    setIsHelmetHovered(!isHelmetHovered);
+  };
+  const [isLoginTriggered, setIsLoginTriggered] = useState(false);
+  const triggerLogin = () => {
+    setIsLoginTriggered(!isLoginTriggered);
+  };
   return (
     <header>
       {/* Header Top section */}
@@ -19,19 +28,24 @@ const Header = () => {
           <input
             type="text"
             className="form-control"
-            style={{ width: "400px" }} 
+            style={{ width: "400px" }}
             placeholder="Search products..."
           />
         </div>
 
         {/* User Links */}
         <div className="user-links">
-          <a href="/login" className="mr-3">
-            <FiUser size='1.3em'/>
-           Login / Signup 
-          </a>
+          <button
+            href=""
+            className="mr-3 position-relative btn-login bg-none"
+            onClick={triggerLogin}
+          >
+            <FiUser size="1.3em" />
+            Login / Signup
+          </button>
+          {isLoginTriggered && <Login trigger={triggerLogin} />}
           <a href="/cart">
-            <BiCart size='1.5em'/> Cart 
+            <BiCart size="1.5em" /> Cart
           </a>
         </div>
       </div>
@@ -53,15 +67,32 @@ const Header = () => {
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav">
               {/* Navigation links */}
-              <li className="nav-item">
+              <li
+                className="nav-item"
+                
+              >
                 <a className="nav-link" href="/home">
                   Home
                 </a>
+               
               </li>
-              <li className="nav-item">
+              <li className="nav-item position-relative" 
+              onMouseEnter={triggerHelmet}
+                onMouseLeave={triggerHelmet}>
                 <a className="nav-link" href="/categories/helmets">
                   Helmets
+
                 </a>
+                <ul
+                  className={`position-absolute hovered gap-1 rounded flex-column list-unstyled p-2  ${
+                    isHelmetHovered ? "d-flex" : "d-none"
+                  }`}
+                >
+                  <li>A</li>
+                  <li>B</li>
+                  <li>C</li>
+                  <li>D</li>
+                </ul>
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="/categories/riding-gears">
@@ -70,12 +101,12 @@ const Header = () => {
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="/categories/accessories">
-                 Accessories
+                  Accessories
                 </a>
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="/categories/parts">
-                  Spare Parts
+                  Auto Parts
                 </a>
               </li>
               <li className="nav-item">
