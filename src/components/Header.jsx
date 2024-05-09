@@ -4,10 +4,6 @@ import { FiUser } from "react-icons/fi";
 import Login from "./Login";
 
 const Header = () => {
-  const [isHelmetHovered, setIsHelmetHovered] = useState(false);
-  const triggerHelmet = () => {
-    setIsHelmetHovered(!isHelmetHovered);
-  };
   const [isLoginTriggered, setIsLoginTriggered] = useState(false);
   const triggerLogin = () => {
     setIsLoginTriggered(!isLoginTriggered);
@@ -19,7 +15,7 @@ const Header = () => {
         {/* Logo */}
         <div className="logo">
           <a href="/" className="navbar-brand">
-            SpareParts.com {/*Have to add actal logo img*/}
+            SpareParts.com {/*Have to add actual logo img*/}
           </a>
         </div>
 
@@ -67,32 +63,15 @@ const Header = () => {
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav">
               {/* Navigation links */}
-              <li
-                className="nav-item"
-                
-              >
+              <li className="nav-item">
                 <a className="nav-link" href="/home">
                   Home
                 </a>
-               
               </li>
-              <li className="nav-item position-relative" 
-              onMouseEnter={triggerHelmet}
-                onMouseLeave={triggerHelmet}>
+              <li className="nav-item">
                 <a className="nav-link" href="/categories/helmets">
                   Helmets
-
                 </a>
-                <ul
-                  className={`position-absolute hovered gap-1 rounded flex-column list-unstyled p-2  ${
-                    isHelmetHovered ? "d-flex" : "d-none"
-                  }`}
-                >
-                  <li>A</li>
-                  <li>B</li>
-                  <li>C</li>
-                  <li>D</li>
-                </ul>
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="/categories/riding-gears">
