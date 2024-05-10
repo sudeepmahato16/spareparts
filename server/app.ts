@@ -1,6 +1,7 @@
 import express from "express";
 import cookieParser from 'cookie-parser'
 import { PrismaClient } from "@prisma/client";
+import cors from "cors";
 
 import { errorHandler } from "@/controller/error";
 import authRouter from "./routes/auth";
@@ -9,6 +10,11 @@ import cartRouter from './routes/cart';
 
 const app = express();
 export const db = new PrismaClient();
+
+
+app.use(cors());
+app.options("*", cors());
+
 
 app.get("/", (req, res, next) => {
   res.send("hello world!");
