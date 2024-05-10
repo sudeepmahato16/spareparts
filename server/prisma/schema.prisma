@@ -51,5 +51,5 @@ model Cart {
   productId String  @db.ObjectId
   product   Product @relation(references: [id], fields: [productId])
 
-  amount Int
+  quantity Int
 }
