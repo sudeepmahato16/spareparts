@@ -20,7 +20,11 @@ const signInToken = (id: string) => {
 };
 
 const createSendToken = (
-  user: Omit<User, "password">,
+  user: {
+    name: string;
+    email: string;
+    id: string;
+  },
   statusCode: number,
   res: Response
 ) => {
@@ -64,7 +68,7 @@ export const signUp = catchAsync(
       data: {
         email,
         password: hashedPassword,
-        name
+        name,
       },
       select: {
         email: true,

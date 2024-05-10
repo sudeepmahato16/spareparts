@@ -1,8 +1,10 @@
 import express from "express";
 import cookieParser from 'cookie-parser'
-import { errorHandler } from "@/controller/error";
 import { PrismaClient } from "@prisma/client";
+
+import { errorHandler } from "@/controller/error";
 import authRouter from "./routes/auth";
+import productRouter from "./routes/product";
 
 const app = express();
 export const db = new PrismaClient();
@@ -27,6 +29,7 @@ app.use(
 app.use(cookieParser());
 
 app.use("/api/v1/auth", authRouter)
+app.use("/api/v1/products", productRouter)
 
 app.use(errorHandler);
 
