@@ -46,7 +46,26 @@ export const deleteProduct = catchAsync(async (req, res, next) => {
   });
 });
 
-export const getProducts = catchAsync(async (req, res, next) => {});
+export const getProducts = catchAsync(async (req, res, next) => {
+  const { category } = req.query;
+
+  let where: any = {};
+
+  if (category) {
+    where.category = category;
+  }
+
+  const products = await db.product.findMany({
+    where,
+  });
+
+  res.status(200).json({
+    status: "success",
+    data: {
+      products,
+    },
+  });
+});
 
 export const getProductById = catchAsync(async (req, res, next) => {
   const { id } = req.params;
