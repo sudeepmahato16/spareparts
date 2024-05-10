@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { BiCart } from "react-icons/bi";
 import { FiUser } from "react-icons/fi";
 import Login from "./Login";
@@ -14,9 +15,9 @@ const Header = () => {
       <div className="header-top d-flex align-items-center justify-content-between">
         {/* Logo */}
         <div className="logo">
-          <a href="/" className="navbar-brand">
+          <Link to="/" className="navbar-brand">
             SpareParts.com {/*Have to add actual logo img*/}
-          </a>
+          </Link>
         </div>
 
         {/* Search Bar */}
@@ -32,7 +33,7 @@ const Header = () => {
         {/* User Links */}
         <div className="user-links">
           <button
-            href=""
+            to=""
             className="mr-3 position-relative btn-login bg-none"
             onClick={triggerLogin}
           >
@@ -40,9 +41,9 @@ const Header = () => {
             Login / Signup
           </button>
           {isLoginTriggered && <Login trigger={triggerLogin} />}
-          <a href="/cart">
+          <Link to="/cart">
             <BiCart size="1.5em" /> Cart
-          </a>
+          </Link>
         </div>
       </div>
 
@@ -64,52 +65,52 @@ const Header = () => {
             <ul className="navbar-nav">
               {/* Navigation links */}
               <li className="nav-item">
-                <a className="nav-link" href="/home">
+                <Link className="nav-link" to="/home">
                   Home
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/categories/helmets">
+                <Link className="nav-link" to="/categories/helmets">
                   Helmets
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/categories/riding-gears">
+                <Link className="nav-link" to="/categories/riding-gears">
                   Riding Gears
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/categories/accessories">
+                <Link className="nav-link" to="/categories/accessories">
                   Accessories
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/categories/parts">
+                <Link className="nav-link" to="/categories/parts">
                   Auto Parts
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/categories/tyres">
+                <Link className="nav-link" to="/categories/tyres">
                   Tyres
-                </a>
+                </Link>
               </li>
             </ul>
             <ul className="navbar-nav">
               {/* Additional links */}
               <li className="nav-item">
-                <a className="nav-link" href="/faqs">
+                <Link className="nav-link" to="/faqs">
                   FAQs
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/about-us">
+                <Link className="nav-link" to="/about-us">
                   About Us
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="/contact-us">
+                <Link className="nav-link" to="/contact-us">
                   Contact Us
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
