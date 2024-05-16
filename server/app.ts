@@ -7,13 +7,17 @@ import { errorHandler } from "@/controller/error";
 import authRouter from "./routes/auth";
 import productRouter from "./routes/product";
 import cartRouter from './routes/cart';
+import userRouter from "./routes/user";
 
 const app = express();
 export const db = new PrismaClient();
 
 
-app.use(cors());
-app.options("*", cors());
+app.use(cors({
+  origin: 'http://localhost:5173',
+  credentials: true
+}));
+// app.options("*", cors());
 
 
 app.get("/", (req, res, next) => {
@@ -38,6 +42,7 @@ app.use(cookieParser());
 app.use("/api/v1/auth", authRouter)
 app.use("/api/v1/products", productRouter)
 app.use("/api/v1/cart", cartRouter)
+app.use("/api/v1/users", userRouter)
 
 app.use(errorHandler);
 

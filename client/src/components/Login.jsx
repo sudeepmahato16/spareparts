@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import { RxCross2 } from "react-icons/rx";
+import { signUp,  signIn } from "../services/auth";
+import {useDispatch} from "react-redux"
+import { setUser } from "../store/userSlice";
 
 const Login = ({ trigger }) => {
   const [showSignup, setShowSignup] = useState(false);
@@ -9,34 +12,57 @@ const Login = ({ trigger }) => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [loginError, setLoginError] = useState("");
 
+  const dispatch = useDispatch();
+
   const toggleSignup = () => {
     setShowSignup(!showSignup);
   };
 
-  const handleLoginSubmit = (event) => {
+  const handleLoginSubmit =async (event) => {
     event.preventDefault();
     // Add your login functionality here
-    if (email === "example@ex.com" && password === "password") {
-      console.log("Login successful");
-      setLoginError("");
-      // Reset form fields
-      setEmail("");
-      setPassword("");
-    } else {
-      console.log("Login failed");
-      setLoginError("Invalid email or password");
+
+    try{
+      const data = await signIn({
+        email,
+        password,
+      });
+      dispatch(setUser(data));
+  
+    trigger()
+  
     }
+      catch(e){
+        console.log(e.message);
+      }
+    
   };
 
-  const handleSignupSubmit = (event) => {
+  const handleSignupSubmit = async (event) => {
     event.preventDefault();
     // Add your signup functionality here
-    console.log("Signing up with fullname:", fullname, "email:", email, "and password:", password);
-    // Reset form fields
-    setFullname("");
-    setEmail("");
-    setPassword("");
-    setConfirmPassword("");
+    console.log(
+      "Signing up with fullname:",
+      fullname,
+      "email:",
+      email,
+      "and password:",
+      password
+    );
+    try{
+    const data = await signUp({
+      email,
+      name: fullname,
+      password,
+    });
+    dispatch(setUser(data));
+
+  trigger()
+
+  }
+    catch(e){
+      console.log(error.message);
+    }
   };
 
   return (
@@ -68,7 +94,9 @@ const Login = ({ trigger }) => {
                 required
                 className="form-control mb-3"
               />
-              <button type="submit" className="btn btn-primary">Login</button>
+              <button type="submit" className="btn btn-primary">
+                Login
+              </button>
             </form>
             <p className="error">{loginError}</p>
             <p className="mt-3">
@@ -124,7 +152,9 @@ const Login = ({ trigger }) => {
                 required
                 className="form-control mb-3"
               />
-              <button type="submit" className="btn btn-primary">Sign Up</button>
+              <button type="submit" className="btn btn-primary">
+                Sign Up
+              </button>
             </form>
             <p className="mt-3">
               Already have an account?{" "}

@@ -51,6 +51,8 @@ export const signUp = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { email, password, name } = req.body;
 
+    console.log(req.body)
+
     if (!email || !password || !name)
       return next(new AppError("Please provide email or password!", 404));
 
@@ -76,6 +78,8 @@ export const signUp = catchAsync(
         id: true,
       },
     });
+
+    console.log(user)
 
     createSendToken(user, 201, res);
   }
@@ -148,3 +152,14 @@ export const protect = catchAsync(async (req, res, next) => {
 
   next();
 });
+
+
+export const logout = catchAsync(async (req, res) => {
+
+  console.log('logout')
+  res.cookie('spareparts', 'loggedout', {
+    expires: new Date(Date.now() + 5 * 1000),
+    httpOnly: true
+  });
+  res.status(200).json({ status: 'success' });
+})

@@ -3,12 +3,24 @@ import { Link } from "react-router-dom";
 import { BiCart } from "react-icons/bi";
 import { FiUser } from "react-icons/fi";
 import Login from "./Login";
+import { useDispatch, useSelector } from "react-redux";
+import { signOut } from "../services/auth";
+import { setUser } from "../store/userSlice";
+import { useCookies } from "react-cookie";
 
 const Header = () => {
   const [isLoginTriggered, setIsLoginTriggered] = useState(false);
+  const [cookies, setCookie, removeCookie] = useCookies();
+  const dispatch = useDispatch();
+
   const triggerLogin = () => {
     setIsLoginTriggered(!isLoginTriggered);
   };
+
+  const { user } = useSelector((state) => state.user);
+
+  console.log(user);
+
   return (
     <header>
       {/* Header Top section */}
@@ -31,19 +43,33 @@ const Header = () => {
         </div>
 
         {/* User Links */}
+
         <div className="user-links">
-          <button
-            to=""
-            className="mr-3 position-relative btn-login bg-none"
-            onClick={triggerLogin}
-          >
-            <FiUser size="1.3em" />
-            Login / Signup
-          </button>
+          {!user && (
+            <button
+              to=""
+              className="mr-3 position-relative btn-login bg-none"
+              onClick={triggerLogin}
+            >
+              <FiUser size="1.3em" />
+              Login / Signup
+            </button>
+          )}
           {isLoginTriggered && <Login trigger={triggerLogin} />}
           <Link to="/cart">
             <BiCart size="1.5em" /> Cart
           </Link>
+
+          {user && (
+            <button
+              onClick={async () => {
+                await signOut();
+                dispatch(setUser(null));
+              }}
+            >
+              log out
+            </button>
+          )}
         </div>
       </div>
 

@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+
 const ProductCategory = ({ category, image }) => (
-  <div className='product-category-item'>
-    <img src={image} alt={category} />
-    <p>{category}</p>
-  </div>
+  <Link to={`/categories/${category.toLowerCase().replace(/\s/g, '-')}`}>
+    <div className='product-category-item'>
+      <img src={image} alt={category} />
+      <p>{category}</p>
+    </div>
+  </Link>
 );
 
 const Slider = ({ images }) => {
@@ -37,7 +40,7 @@ const Home = () => {
     { category: 'Helmets', image: '/images/MainHelmet.png' },
     { category: 'Riding Gears', image: '/images/MainGear.png' },
     { category: 'Accessories', image: '/images/MainAccessories.png' },
-    { category: 'Auto Parts', image: '/images/MainParts.png' },
+    { category: 'Parts', image: '/images/MainParts.png' },
     { category: 'Tyres', image: '/images/MainTyres.png' },
   ];
 
