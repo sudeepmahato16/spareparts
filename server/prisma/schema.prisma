@@ -28,6 +28,8 @@ enum Category {
   helmet
   tyres
   gears
+  accessories
+  autoparts
 }
 
 model Product {

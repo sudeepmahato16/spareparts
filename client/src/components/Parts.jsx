@@ -1,5 +1,6 @@
-// Parts.jsx
 import React, { useState } from "react";
+import { useFetch } from "../hooks/useFetch";
+import { getProducts } from "../services/product";
 const Parts = () => {
   const chain = [
     {
@@ -27,8 +28,12 @@ const Parts = () => {
       image: "/images/cs4.webp",
     },
   ];
-
+  
   const [clickedItems, setClickedItems] = useState([]);
+  const { data, isLoading } = useFetch(() =>
+    getProducts({ category: "parts" })
+  );
+
 
   const isItemInCart = (id) => {
     return clickedItems.includes(id);
@@ -45,9 +50,9 @@ const Parts = () => {
       <h1 className="mb-4">Spare Parts</h1>
 
       <section className="mb-5">
-        {/* <h2 className="mb-3">Gloves</h2> */}
         <div className="row">
-          {chain.map((product, index) => (
+        {data.length === 0 && <p>No product found</p>}
+          {data.map((product, index) => (
             <div key={product.id} className="col-lg-3 col-md-6 mb-4">
               <div className="card h-100 border-0">
                 <img

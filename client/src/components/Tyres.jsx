@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useFetch } from "../hooks/useFetch";
+import { getProducts } from "../services/product";
 
 const Tyres = () => {
   const tyres = [
@@ -46,6 +48,7 @@ const Tyres = () => {
     },
   ];
   const [clickedItems, setClickedItems] = useState([]);
+  const {data, isLoading} = useFetch(() => getProducts({category: "tyres"}))
 
   const isItemInCart = (id) => {
     return clickedItems.includes(id);
@@ -57,13 +60,19 @@ const Tyres = () => {
     }
   };
 
+
+  if(isLoading) return <p>Loading ...</p>
+
+
+
   return (
     <div className="container py-5">
       <h1 className="mb-4">Tyres</h1>
 
       <section className="mb-5">
         <div className="row">
-          {tyres.map((product) => (
+          {data.length === 0 && <p>No product found</p>}
+          {data.map((product) => (
             <div key={product.id} className="col-lg-3 col-md-6 mb-4">
               <div className="card h-100 border-0">
                 <img

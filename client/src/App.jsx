@@ -1,3 +1,4 @@
+// src/App.jsx
 import React, { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
@@ -16,6 +17,7 @@ import { getCurrentUser } from "./services/user";
 import { useDispatch } from "react-redux";
 import { setUser } from "./store/userSlice";
 import AdminPanel from "./admin/AdminPanel";
+import ProductForm from "./admin/ProductForm";
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -53,8 +55,7 @@ const App = () => {
     setCartItems(
       cartItems.map((item) =>
         item.id === itemId && item.quantity > 1
-          ? { ...item, quantity: item.quantity - 1 }
-          : item
+          ? { ...item, quantity: item.quantity - 1 } : item
       )
     );
   };
@@ -110,6 +111,7 @@ const App = () => {
           />
 
           <Route path="/admin" element={<AdminPanel />} />
+          <Route path="/product-form" element={<ProductForm />} />
 
         </Routes>
         <Footer />

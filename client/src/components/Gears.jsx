@@ -1,4 +1,3 @@
-// Gears.jsx
 import React, { useState } from "react";
 
 const Gears = () => {
@@ -24,6 +23,7 @@ const Gears = () => {
   
   const [clickedItems, setClickedItems] = useState([]);
 
+
   const isItemInCart = (id) => {
     return clickedItems.includes(id);
   };
@@ -42,6 +42,7 @@ const Gears = () => {
       <section className="mb-5">
         <h2 className="mb-3">Gloves</h2>
         <div className="row">
+       
           {glovesProducts.map((product, index) => (
             <div key={product.id} className="col-lg-3 col-md-6 mb-4">
               <div className="card h-100 border-0">
