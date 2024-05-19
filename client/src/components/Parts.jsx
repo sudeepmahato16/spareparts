@@ -2,32 +2,32 @@ import React, { useState } from "react";
 import { useFetch } from "../hooks/useFetch";
 import { getProducts } from "../services/product";
 const Parts = () => {
-  const chain = [
-    {
-      id: 1,
-      name: "ROLON Chain Sprocket Kit(For Honda CBR 250R)",
-      price: "$12",
-      image: "/images/cs1.webp",
-    },
-    {
-      id: 2,
-      name: "ROLON Chain Sprocket Kit(For TVS A[ache RTR 180CC] )",
-      price: "$12",
-      image: "/images/cs2.webp",
-    },
-    {
-      id: 3,
-      name: "ROLON Chain Sprocket Kit for Bajaj Pulser 150 NS/160NS(4Hole| 42T-15T-122L] )",
-      price: "$12",
-      image: "/images/cs3.webp",
-    },
-    {
-      id: 4,
-      name: "Gear Lever for TVS Apache RTR 160 | RTR 180 | Gear Pedal",
-      price: "$4",
-      image: "/images/cs4.webp",
-    },
-  ];
+  // const chain = [
+  //   {
+  //     id: 1,
+  //     name: "ROLON Chain Sprocket Kit(For Honda CBR 250R)",
+  //     price: "$12",
+  //     image: "/images/cs1.webp",
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "ROLON Chain Sprocket Kit(For TVS A[ache RTR 180CC] )",
+  //     price: "$12",
+  //     image: "/images/cs2.webp",
+  //   },
+  //   {
+  //     id: 3,
+  //     name: "ROLON Chain Sprocket Kit for Bajaj Pulser 150 NS/160NS(4Hole| 42T-15T-122L] )",
+  //     price: "$12",
+  //     image: "/images/cs3.webp",
+  //   },
+  //   {
+  //     id: 4,
+  //     name: "Gear Lever for TVS Apache RTR 160 | RTR 180 | Gear Pedal",
+  //     price: "$4",
+  //     image: "/images/cs4.webp",
+  //   },
+  // ];
   
   const [clickedItems, setClickedItems] = useState([]);
   const { data, isLoading } = useFetch(() =>

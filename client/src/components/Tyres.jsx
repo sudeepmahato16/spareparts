@@ -3,50 +3,50 @@ import { useFetch } from "../hooks/useFetch";
 import { getProducts } from "../services/product";
 
 const Tyres = () => {
-  const tyres = [
-    {
-      id: 1,
-      name: "Dunlop GPR 300 150/60-17",
-      price: "$95",
-      image: "/images/tyre1.png",
-    },
-    {
-      id: 2,
-      name: "Dunlop GPR 300 110/70-17",
-      price: "$65",
-      image: "/images/tyre2.png",
-    },
-    {
-      id: 3,
-      name: "Pirelli Diablo Rosso III 110/70-17",
-      price: "$65",
-      image: "/images/tyre3.png",
-    },
-    {
-      id: 4,
-      name: "Pirelli Diablo Rosso III 150/60-17",
-      price: "$80",
-      image: "/images/tyre4.png",
-    },
-    {
-      id: 5,
-      name: "IRC IZ-S 110/70-17",
-      price: "$45",
-      image: "/images/tyre5.png",
-    },
-    {
-      id: 6,
-      name: "IRC IZ-S 150/60-17",
-      price: "$70",
-      image: "/images/tyre6.png",
-    },
-    {
-      id: 7,
-      name: "Metzeler M5 150/60-17",
-      price: "$90",
-      image: "/images/tyre7.png",
-    },
-  ];
+  // const tyres = [
+  //   {
+  //     id: 1,
+  //     name: "Dunlop GPR 300 150/60-17",
+  //     price: "$95",
+  //     image: "/images/tyre1.png",
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "Dunlop GPR 300 110/70-17",
+  //     price: "$65",
+  //     image: "/images/tyre2.png",
+  //   },
+  //   {
+  //     id: 3,
+  //     name: "Pirelli Diablo Rosso III 110/70-17",
+  //     price: "$65",
+  //     image: "/images/tyre3.png",
+  //   },
+  //   {
+  //     id: 4,
+  //     name: "Pirelli Diablo Rosso III 150/60-17",
+  //     price: "$80",
+  //     image: "/images/tyre4.png",
+  //   },
+  //   {
+  //     id: 5,
+  //     name: "IRC IZ-S 110/70-17",
+  //     price: "$45",
+  //     image: "/images/tyre5.png",
+  //   },
+  //   {
+  //     id: 6,
+  //     name: "IRC IZ-S 150/60-17",
+  //     price: "$70",
+  //     image: "/images/tyre6.png",
+  //   },
+  //   {
+  //     id: 7,
+  //     name: "Metzeler M5 150/60-17",
+  //     price: "$90",
+  //     image: "/images/tyre7.png",
+  //   },
+  // ];
   const [clickedItems, setClickedItems] = useState([]);
   const {data, isLoading} = useFetch(() => getProducts({category: "tyres"}))
 
@@ -62,8 +62,6 @@ const Tyres = () => {
 
 
   if(isLoading) return <p>Loading ...</p>
-
-
 
   return (
     <div className="container py-5">
