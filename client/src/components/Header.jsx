@@ -1,17 +1,16 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, redirect, useNavigate } from "react-router-dom";
 import { BiCart } from "react-icons/bi";
 import { FiUser } from "react-icons/fi";
 import Login from "./Login";
 import { useDispatch, useSelector } from "react-redux";
 import { signOut } from "../services/auth";
 import { setUser } from "../store/userSlice";
-import { useCookies } from "react-cookie";
 
 const Header = () => {
   const [isLoginTriggered, setIsLoginTriggered] = useState(false);
-  const [cookies, setCookie, removeCookie] = useCookies();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const triggerLogin = () => {
     setIsLoginTriggered(!isLoginTriggered);
@@ -19,7 +18,6 @@ const Header = () => {
 
   const { user } = useSelector((state) => state.user);
 
-  console.log(user);
 
   return (
     <header>
@@ -55,7 +53,10 @@ const Header = () => {
               Login / Signup
             </button>
           )}
+
           {isLoginTriggered && <Login trigger={triggerLogin} />}
+          {user?.isAdmin && <Link to="/admin">admin panel</Link>}
+
           <Link to="/cart">
             <BiCart size="1.5em" /> Cart
           </Link>
@@ -63,6 +64,7 @@ const Header = () => {
           {user && (
             <button
               onClick={async () => {
+                navigate('/')
                 await signOut();
                 dispatch(setUser(null));
               }}

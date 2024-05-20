@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import {
   getProducts,
   deleteProduct as delProduct,
@@ -7,6 +8,8 @@ import {
 
 const AdminPanel = () => {
   const [products, setProducts] = useState([]);
+  const {user} = useSelector(state => state.user)
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetch = async () => {
@@ -14,8 +17,13 @@ const AdminPanel = () => {
       if (products) setProducts(products);
     };
 
-    fetch();
-  }, []);
+    
+  if(!user?.isAdmin){
+    return navigate("/");
+  }
+
+   fetch();
+  }, [user?.isAdmin, navigate]);
 
 
 
