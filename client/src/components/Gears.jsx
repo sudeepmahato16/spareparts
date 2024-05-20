@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import { useTransition } from "react";
 import { useFetch } from "../hooks/useFetch";
 import { getProducts } from "../services/product";
+import { addToCart } from "../services/cart";
 
 const Gears = () => {
   // const glovesProducts = [
@@ -26,18 +27,22 @@ const Gears = () => {
   const { data, isLoading } = useFetch(() =>
     getProducts({ category: "gears" })
   );
-  const [clickedItems, setClickedItems] = useState([]);
 
 
-  const isItemInCart = (id) => {
-    return clickedItems.includes(id);
+  const [isAdding, startTransition] = useTransition();
+
+  const add = (id) => {
+    startTransition(async () => {
+      try {
+        await addToCart({ productId: id, quantity: 1 });
+        alert("Product added to cart");
+      } catch (error) {
+        alert(error.message);
+      }
+    });
   };
 
-  const addToCart = (id) => {
-    if (!isItemInCart(id)) {
-      setClickedItems([...clickedItems, id]);
-    }
-  };
+
 
   if(isLoading) return <p>LOading...</p>
 
@@ -57,13 +62,15 @@ const Gears = () => {
                 <div className="card-body">
                   <h5 className="card-title">{product.name}</h5>
                   <p className="card-text">{product.price}</p>
-                  <a
+                  <button
                     onClick={() => {
-                      addToCart(product.id);
+                      add(product.id);
                     }}
-                    className="btn btn-primary btn-sm">
-                    {isItemInCart(product.id) ? "Added to cart" : "Add to cart"}
-                  </a>
+                    disabled={isAdding}
+                    className="btn btn-primary btn-sm"
+                  >
+                    Add to cart
+                  </button>
                 </div>
               </div>
             </div>

@@ -1,16 +1,40 @@
-import React from "react";
+import { useTransition } from "react";
+import { useFetch } from './../hooks/useFetch';
+import { getAllCartProducts, removeFromCart } from "../services/cart";
+import { useNavigate } from 'react-router-dom';
 
-const Cart = ({ cartItems, addQuantity, removeQuantity, removeFromCart }) => {
-  // Function to calculate total price
+const Cart = () => {
+
+
+  const {data, isLoading} = useFetch(getAllCartProducts);
+  const [isDeleting, startTransition] = useTransition();
+  const navigate = useNavigate();
+
+  if(isLoading) return <div>loading...</div>
+
+    // Function to calculate total price
   const calculateTotalPrice = () => {
-    return cartItems.reduce((total, item) => total + (parseFloat(item.price) * item.quantity), 0).toFixed(2);
+    return data.reduce((total, item) => total + (parseFloat(item.product.price)), 0).toFixed(2);
   };
+
+  const onDelete = (id) => {
+    startTransition(async () => {
+      try {
+        await removeFromCart(id);
+        navigate(0)
+        alert("product removed from cart");
+      } catch (error) {
+        alert(error.message)
+      }
+    })
+  }
+
 
   return (
     <div className="container py-5">
       <h1 className="mb-4">Cart</h1>
 
-      {cartItems.length === 0 ? (
+      {data.length === 0 ? (
         <p>Your cart is empty.</p>
       ) : (
         <table className="table">
@@ -25,18 +49,16 @@ const Cart = ({ cartItems, addQuantity, removeQuantity, removeFromCart }) => {
             </tr>
           </thead>
           <tbody>
-            {cartItems.map((item) => (
-              <tr key={item.id}>
-                <td><img src={item.image} alt={item.name} style={{ width: '50px', height: '50px' }} /></td>
-                <td>{item.name}</td>
-                <td>{item.price}</td>
+            {data.map(({id, product, quantity}) => (
+              <tr key={id}>
+                <td><img src={product.image} alt={product.name} style={{ width: '50px', height: '50px' }} /></td>
+                <td>{product.name}</td>
+                <td>{product.price}</td>
                 <td>
-                  <button className="btn btn-secondary btn-sm" onClick={() => removeQuantity(item.id)}>-</button>
-                  <span className="mx-2">{item.quantity}</span>
-                  <button className="btn btn-secondary btn-sm" onClick={() => addQuantity(item.id)}>+</button>
+               {quantity}
                 </td>
-                <td>${(parseFloat(item.price) * item.quantity).toFixed(2)}</td>
-                <td><button className="btn btn-danger btn-sm" onClick={() => removeFromCart(item.id)}>Remove</button></td>
+                <td>${(parseFloat(product.price) * quantity).toFixed(2)}</td>
+                <td><button className="btn btn-danger btn-sm" onClick={() => onDelete(id)} disabled={isDeleting}>Remove</button></td>
               </tr>
             ))}
           </tbody>

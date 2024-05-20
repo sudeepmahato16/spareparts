@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import { useTransition } from "react";
 import { useFetch } from "../hooks/useFetch";
 import { getProducts } from "../services/product";
+import { addToCart } from "../services/cart";
 const Accessories = () => {
   // const HelmetCom = [
   //   {id: 1, name: 'Sena 30K', price: '$285', image: '/images/helcom1.png' },
@@ -28,16 +29,17 @@ const Accessories = () => {
   const { data, isLoading } = useFetch(() =>
     getProducts({ category: "accessories" })
   );
-  const [clickedItems, setClickedItems] = useState([]);
+  const [isAdding, startTransition] = useTransition();
 
-  const isItemInCart = (id) => {
-    return clickedItems.includes(id);
-  };
-
-  const addToCart = (id) => {
-    if (!isItemInCart(id)) {
-      setClickedItems([...clickedItems, id]);
-    }
+  const add = (id) => {
+    startTransition(async () => {
+      try {
+        await addToCart({ productId: id, quantity: 1 });
+        alert("Product added to cart");
+      } catch (error) {
+        alert(error.message);
+      }
+    });
   };
 
   if(isLoading) return <p>isLoading...</p>
@@ -51,20 +53,22 @@ const Accessories = () => {
         {/* <h2 className="mb-3">Helmet InterCom</h2> */}
         {data.length === 0 && <p>No Product found</p>}
         <div className="row">
-          {data.map((product, index) => (
+          {data.map((product) => (
             <div key={product.id} className="col-lg-3 col-md-6 mb-4">
               <div className="card h-100 border-0">
                 <img src={product.image} className="card-img-top helmet-image" alt={product.name} />
                 <div className="card-body">
                   <h5 className="card-title">{product.name}</h5>
                   <p className="card-text">{product.price}</p>
-                  <a
+                  <button
                     onClick={() => {
-                      addToCart(product.id);
+                      add(product.id);
                     }}
-                    className="btn btn-primary btn-sm">
-                    {isItemInCart(product.id) ? "Added to cart" : "Add to cart"}
-                  </a>
+                    disabled={isAdding}
+                    className="btn btn-primary btn-sm"
+                  >
+                    Add to cart
+                  </button>
                 </div>
               </div>
             </div>

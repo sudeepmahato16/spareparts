@@ -1,7 +1,8 @@
 // Helmet.jsx
-import React, { useState } from "react";
+import {  useTransition } from "react";
 import { useFetch } from "../hooks/useFetch";
 import { getProducts } from "../services/product";
+import { addToCart } from "../services/cart";
 const Helmet = () => {
 
   
@@ -74,16 +75,17 @@ const Helmet = () => {
   const { data, isLoading } = useFetch(() =>
     getProducts({ category: "helmet" })
   );
-  const [clickedItems, setClickedItems] = useState([]);
+  const [isAdding, startTransition] = useTransition();
 
-  const isItemInCart = (id) => {
-    return clickedItems.includes(id);
-  };
-
-  const addToCart = (id) => {
-    if (!isItemInCart(id)) {
-      setClickedItems([...clickedItems, id]);
-    }
+  const add = (id) => {
+    startTransition(async () => {
+      try {
+        await addToCart({ productId: id, quantity: 1 });
+        alert("Product added to cart");
+      } catch (error) {
+        alert(error.message);
+      }
+    });
   };
 
   if (isLoading) {
@@ -111,14 +113,15 @@ const Helmet = () => {
                 <div className="card-body">
                   <h5 className="card-title">{product.name}</h5>
                   <p className="card-text">{product.price}</p>
-                  <a
+                  <button
                     onClick={() => {
-                      addToCart(product.id);
+                      add(product.id);
                     }}
+                    disabled={isAdding}
                     className="btn btn-primary btn-sm"
                   >
-                    {isItemInCart(product.id) ? "Added to cart" : "Add to cart"}
-                  </a>
+                    Add to cart
+                  </button>
                 </div>
               </div>
             </div>
