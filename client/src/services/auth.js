@@ -42,7 +42,6 @@ export const signOut = async () => {
   try{
   await axios.post(
     "http://localhost:8001/api/v1/auth/signout",
-    
     {
       withCredentials: true,
     }

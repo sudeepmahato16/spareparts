@@ -40,6 +40,8 @@ const Accessories = () => {
     }
   };
 
+  if(isLoading) return <p>isLoading...</p>
+
 
   return (
     <div className="container py-5">

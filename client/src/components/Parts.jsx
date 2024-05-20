@@ -31,7 +31,7 @@ const Parts = () => {
   
   const [clickedItems, setClickedItems] = useState([]);
   const { data, isLoading } = useFetch(() =>
-    getProducts({ category: "parts" })
+    getProducts({ category: "autoparts" })
   );
 
 
@@ -44,6 +44,8 @@ const Parts = () => {
       setClickedItems([...clickedItems, id]);
     }
   };
+
+  if(isLoading) return <p>Loading...</p>
 
   return (
     <div className="container py-5">

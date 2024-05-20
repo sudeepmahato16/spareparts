@@ -25,15 +25,15 @@ export const addToCart = catchAsync(async (req, res, next) => {
       userId: req.user.id,
     },
     select: {
-      product:true,
-      quantity: true
-    }
+      product: true,
+      quantity: true,
+    },
   });
 
   res.status(201).json({
     status: "success",
     data: {
-      ,
+      cart: cartItem,
     },
   });
 });

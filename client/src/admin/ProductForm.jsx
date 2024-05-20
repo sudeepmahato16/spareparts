@@ -1,8 +1,36 @@
 // src/admin/ProductForm.jsx
-import React from 'react';
-import { Form, Button, Container, Row, Col } from 'react-bootstrap';
+import React, { useState } from "react";
+import { Form, Button, Container, Row, Col } from "react-bootstrap";
+import { addProduct } from "../services/product";
 
 const ProductForm = () => {
+  const [name, setName] = useState("");
+  const [image, setImage] = useState("")
+  const [price, setPrice] = useState("");
+  const [category, setCategory] = useState("helmet");
+
+  const onAdd = async (e) => {
+    e.preventDefault();
+    try {
+      
+  
+    const product = await addProduct({
+      name,
+      price: +price,
+      category,
+      image,
+    });
+
+    console.log(product);
+    alert("Product is added");
+
+  } catch (error) {
+      alert(error.message)
+  }
+
+  }
+
+
   return (
     <Container>
       <Form>
@@ -11,7 +39,9 @@ const ProductForm = () => {
             Product Name
           </Form.Label>
           <Col sm="10">
-            <Form.Control type="text" placeholder="Enter product name" />
+            <Form.Control type="text" value={name} placeholder="Enter product name" onChange={(e) => {
+              setName(e.target.value)
+            }}  />
           </Col>
         </Form.Group>
 
@@ -20,35 +50,25 @@ const ProductForm = () => {
             Price
           </Form.Label>
           <Col sm="10">
-            <Form.Control type="number" placeholder="Enter price" />
+            <Form.Control type="number" placeholder="Enter price" value={price} onChange={(e) => {
+              setPrice(e.target.value)
+            }} />
           </Col>
         </Form.Group>
 
-        <Form.Group as={Row} controlId="formProductID">
+        <Form.Group as={Row} controlId="formPrice">
           <Form.Label column sm="2">
-            Product ID
+            Category
           </Form.Label>
-          <Col sm="10">
-            <Form.Control type="text" placeholder="Enter product ID" />
-          </Col>
-        </Form.Group>
-
-        <Form.Group as={Row} controlId="formDiscount">
-          <Form.Label column sm="2">
-            Discount
-          </Form.Label>
-          <Col sm="10">
-            <Form.Control type="number" placeholder="Enter discount" />
-          </Col>
-        </Form.Group>
-
-        <Form.Group as={Row} controlId="formProductDescription">
-          <Form.Label column sm="2">
-            Product Description
-          </Form.Label>
-          <Col sm="10">
-            <Form.Control as="textarea" rows={3} placeholder="Enter product description" />
-          </Col>
+          <Form.Select aria-label="Default select example" value={category} onChange={(e) => {
+            setCategory(e.target.value)
+          }}>
+            <option value="helmet">helmet</option>
+            <option value="gears">gears</option>
+            <option value="tyres">tyres</option>
+            <option value="autoparts">autoparts</option>
+            <option value="accesssories">accesssories</option>
+          </Form.Select>
         </Form.Group>
 
         <Form.Group as={Row} controlId="formProductImage">
@@ -56,13 +76,16 @@ const ProductForm = () => {
             Product Image
           </Form.Label>
           <Col sm="10">
-            <Form.Control type="file" />
+            <Form.Control type="file" accept="image/*"  onChange={(e) => {
+              setImage(e.target.files[0])
+     
+            }} />
           </Col>
         </Form.Group>
 
         <Row>
           <Col sm={{ span: 10, offset: 2 }}>
-            <Button variant="primary" type="submit">
+            <Button variant="primary" type="submit" onClick={onAdd}>
               Add Product
             </Button>
             <Button variant="secondary" className="ml-2">

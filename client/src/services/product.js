@@ -1,15 +1,18 @@
 import axios from "axios";
+import { uploadImage } from './uploadImage';
 
 export const addProduct = async ({ name, price, category, image }) => {
+
+  
   try {
+    const imageUrl = await uploadImage(image)
     const { data } = await axios.post(
       "http://localhost:8001/api/v1/products",
       {
         name,
         price,
         category,
-        image:
-          "https://admin.helmetsnepal.com/front/uploads/product_image/img-2023-09-14-01-24-53-dunlop-gpr-300--73w--tl-road-rear-tire-removebg-preview.png",
+        image: imageUrl
       },
       {
         withCredentials: true,
@@ -19,6 +22,7 @@ export const addProduct = async ({ name, price, category, image }) => {
     return data.data.product;
   } catch (error) {
     console.log(error.message);
+    throw new Error(error.message)
   }
 };
 

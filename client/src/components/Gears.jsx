@@ -24,7 +24,7 @@ const Gears = () => {
   // ];
   
   const { data, isLoading } = useFetch(() =>
-    getProducts({ category: "riding-gears" })
+    getProducts({ category: "gears" })
   );
   const [clickedItems, setClickedItems] = useState([]);
 
@@ -39,6 +39,8 @@ const Gears = () => {
     }
   };
 
+  if(isLoading) return <p>LOading...</p>
+
 
   return (
     <div className="container py-5">
@@ -48,7 +50,7 @@ const Gears = () => {
         {/* <h2 className="mb-3">Gloves</h2> */}
         <div className="row">
         {data.length === 0 && <p>No Product found</p>}
-          {data.map((product, index) => (
+          {data.map((product) => (
             <div key={product.id} className="col-lg-3 col-md-6 mb-4">
               <div className="card h-100 border-0">
                 <img src={product.image} className="card-img-top helmet-image" alt={product.name} />

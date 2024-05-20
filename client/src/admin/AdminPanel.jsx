@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { Link } from 'react-router-dom';
 import {
   getProducts,
-  addProduct as uploadProduct,
   deleteProduct as delProduct,
 } from "../services/product";
 
@@ -17,20 +17,7 @@ const AdminPanel = () => {
     fetch();
   }, []);
 
-  // Function to add a new product
-  const addProduct = async () => {
-    // Implement functionality to add a new product
 
-    const product = await uploadProduct({
-      name: "test",
-      price: 45,
-      category: "helmet",
-      image: "lsjfls",
-    });
-    console.log(product);
-
-    setProducts((prev) => [product, ...prev]);
-  };
 
   // Function to edit a product
   const editProduct = (id) => {
@@ -46,10 +33,6 @@ const AdminPanel = () => {
     setProducts((prev) => prev.filter((i) => i.id !== id));
   };
 
-  // Function to approve a product
-  const approveProduct = (id) => {
-    // Implement functionality to approve a product
-  };
 
   return (
     <div className="container py-5">
@@ -87,12 +70,6 @@ const AdminPanel = () => {
                 >
                   Delete
                 </button>
-                <button
-                  className="btn btn-success"
-                  onClick={() => approveProduct(product.id)}
-                >
-                  Approve
-                </button>
               </td>
             </tr>
           ))}
@@ -100,9 +77,9 @@ const AdminPanel = () => {
       </table>
 
       {/* Button to add a new product */}
-      <button className="btn btn-primary" onClick={addProduct}>
+      <Link to="/product-form" className="btn btn-primary">
         Add Product
-      </button>
+      </Link>
     </div>
   );
 };
